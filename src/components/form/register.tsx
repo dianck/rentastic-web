@@ -42,7 +42,7 @@ export default function FormRegister() {
     try {
 
       await axios.post("/auth/register", value);
-      toast.success("Register successfully, please verify on your mailbox!");
+      toast.success("Register successfully, please VERIFY on your mailbox!");
       action.resetForm();
       router.push("/");
 
