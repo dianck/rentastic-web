@@ -1,4 +1,4 @@
-AUTH_SECRET="=" # Added by `npx auth`. Read more: https://cli.authjs.dev
+AUTH_SECRET="" 
 NEXT_PUBLIC_BE_URL=
 
 NEXT_PUBLIC_BRAND="Template FE"
