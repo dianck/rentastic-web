@@ -83,6 +83,7 @@ export default function FormLogin() {
                   type="text"
                   className="mb-2 p-2 border border-gray-600 rounded-md "
                   aria-describedby="loginError"
+                  data-cy="username-input"
                 />
                 {touched.login && errors.login && (
                   <div className="text-red-500 text-[12px] -mt-2">
@@ -99,6 +100,7 @@ export default function FormLogin() {
                   name="password"
                   type="password"
                   className="mb-2 p-2 border border-gray-600 rounded-md"
+                  data-cy="password-input"
                 />
                 {touched.password && errors.password && (
                   <div className="text-red-500 text-[12px] -mt-2">
@@ -122,6 +124,7 @@ export default function FormLogin() {
                   type="submit"
                   disabled={isSubmitting}
                   className="py-1 px-2 w-full btn-foreground text-sm rounded-md"
+                  data-cy="submit-login"
                 >
                   {isSubmitting ? "Loading ..." : "Sign in"}
                 </button>

@@ -85,7 +85,7 @@ export default function Navbar() {
           <div className="hidden md:flex space-x-6 relative z-50">
             {session &&
               navItems.map((item, index) => (
-                <div key={index} className="relative group">
+                <div key={index} className="relative group" data-cy={`menu-${item.label.toLowerCase()}`}>
                   {"subItems" in item ? (
                     <>
                       <div className="navbar-menu cursor-pointer text-gray-700 hover:text-indigo-600">
@@ -120,6 +120,7 @@ export default function Navbar() {
               <Link
                 href="/login"
                 className="text-gray-700 hover:text-indigo-600 transition"
+                data-cy="login-button"
               >
                 Login
               </Link>
@@ -143,7 +144,7 @@ export default function Navbar() {
         <div className="md:hidden bg-white px-4 pt-2 pb-4 space-y-2 shadow-lg">
           {session &&
             navItems.map((item, index) => (
-              <div key={index}>
+              <div key={index} data-cy={`menu-${item.label.toLowerCase()}`}>
                 {"subItems" in item ? (
                   <>
                     <button
@@ -188,6 +189,7 @@ export default function Navbar() {
                 href="/login"
                 className="block text-gray-700 hover:text-indigo-600 transition"
                 onClick={() => setIsOpen(false)}
+                data-cy="login-button"
               >
                 Login
               </Link>
