@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Logout from "./logout";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 type NavItem =
   | { label: string; subItems: { label: string; href: string }[] }
@@ -77,8 +78,20 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="navbar-title">
-            <Link href="/">{process.env.NEXT_PUBLIC_BRAND}</Link>
+          <div className="flex items-center">
+            <Link href="/" className="flex items-center">
+              <Image
+                alt="logo"
+                src={`/${(process.env.NEXT_PUBLIC_LOGO || "fallback-logo.png").replace(/^\/+/, "")}`}
+                width={10}
+                height={10}
+                className="h-8 w-8"
+                priority
+              />
+              <span className="text-lg font-semibold ml-[1px]">
+                {process.env.NEXT_PUBLIC_BRAND}
+              </span>
+            </Link>
           </div>
 
           {/* Desktop Menu */}
