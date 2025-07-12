@@ -108,12 +108,22 @@ export default function FormLogin() {
                   </div>
                 )}
                 {/* ✅ Tambahkan tautan register di sini */}
-                <div className="mt-2 text-sm text-gray-600">
-                  Don&apos;t have an account?{" "}
-                  <Link href="/register" className="text-blue-600 underline">
-                    Register here
-                  </Link>
-                </div>
+                  <div className="mt-2 text-sm text-gray-600">
+                    {process.env.NEXT_PUBLIC_ACCOUNT_REGISTRATION === 'true' && (
+                      <>
+                        Don&apos;t have an account?{' '}
+                        <Link href="/register" className="text-blue-600 underline">
+                          Register here
+                        </Link>{' '}
+                        or{' '}
+                      </>
+                    )}
+                    <Link href="/forgot" className="text-blue-600 underline">
+                      Forgot your password
+                    </Link>
+                  </div>
+
+
               </div>
 
 
