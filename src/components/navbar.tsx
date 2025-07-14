@@ -6,6 +6,7 @@ import { useState } from "react";
 import Logout from "./logout";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+// import Image from "next/image";
 
 type NavItem =
   | { label: string; subItems: { label: string; href: string }[] }
@@ -71,6 +72,14 @@ export default function Navbar() {
         { label: "Charging", href: "/records/routine" },
       ],
     },
+    {
+      label: "Setting",
+      subItems: [
+        { label: "Change Password", href: "/setting/change-password" },
+        { label: "Add Member", href: "/setting/add-member" },
+      ],
+    },
+
   ];
 
   return (
@@ -93,6 +102,8 @@ export default function Navbar() {
               </span>
             </Link>
           </div>
+
+
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6 relative z-50">
