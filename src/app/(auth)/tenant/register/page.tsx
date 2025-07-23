@@ -16,7 +16,7 @@ function GoogleIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export default function UserLoginPage() {
+export default function TenantRegisterPage() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-background px-4">
       <div className="w-full max-w-md">
@@ -26,13 +26,13 @@ export default function UserLoginPage() {
         </Link>
         <Card>
           <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-2xl font-bold">Welcome Back, User!</CardTitle>
-            <CardDescription>Enter your email below to login to your account</CardDescription>
+            <CardTitle className="text-2xl font-bold">Become a Tenant</CardTitle>
+            <CardDescription>List your property and start earning today.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <Button variant="outline" className="w-full">
               <GoogleIcon className="mr-2 h-4 w-4" />
-              Login with Google
+              Sign up with Google
             </Button>
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
@@ -45,27 +45,26 @@ export default function UserLoginPage() {
               </div>
             </div>
             <div className="space-y-2">
+              <Label htmlFor="business-name">Business Name</Label>
+              <Input id="business-name" placeholder="My Awesome Villa" required />
+            </div>
+            <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input id="email" type="email" placeholder="m@example.com" required />
             </div>
             <div className="space-y-2">
-              <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
-                <Link href="#" className="ml-auto inline-block text-sm underline">
-                  Forgot your password?
-                </Link>
-              </div>
+              <Label htmlFor="password">Password</Label>
               <Input id="password" type="password" required />
             </div>
             <Button type="submit" className="w-full" style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }}>
-              Login
+              Create Account
             </Button>
           </CardContent>
           <CardFooter className="text-center text-sm">
             <p className="w-full">
-                Don&apos;t have an account?{" "}
-                <Link href="/register" className="underline">
-                    Sign up
+                Already have a tenant account?{" "}
+                <Link href="/tenant/login" className="underline">
+                    Log in
                 </Link>
             </p>
           </CardFooter>

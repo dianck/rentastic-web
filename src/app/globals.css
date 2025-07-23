@@ -4,6 +4,13 @@
 :root {
   --background: #ffffff;
   --foreground: #9f25f0;
+  --accent: #3a3aff;
+  --accent-foreground: #ffffff;  
+}
+
+.rdp {
+  background-color: var(--foreground);
+  color: white;
 }
 
 

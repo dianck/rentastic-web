@@ -16,7 +16,7 @@ function GoogleIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export default function UserLoginPage() {
+export default function TenantLoginPage() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-background px-4">
       <div className="w-full max-w-md">
@@ -26,8 +26,8 @@ export default function UserLoginPage() {
         </Link>
         <Card>
           <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-2xl font-bold">Welcome Back, User!</CardTitle>
-            <CardDescription>Enter your email below to login to your account</CardDescription>
+            <CardTitle className="text-2xl font-bold">Welcome Back, Tenant!</CardTitle>
+            <CardDescription>Enter your email to login to your dashboard</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <Button variant="outline" className="w-full">
@@ -62,9 +62,9 @@ export default function UserLoginPage() {
             </Button>
           </CardContent>
           <CardFooter className="text-center text-sm">
-            <p className="w-full">
-                Don&apos;t have an account?{" "}
-                <Link href="/register" className="underline">
+             <p className="w-full">
+                Don&apos;t have a tenant account?{" "}
+                <Link href="/tenant/register" className="underline">
                     Sign up
                 </Link>
             </p>
