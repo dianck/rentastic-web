@@ -5,7 +5,11 @@
   --background: #ffffff;
   --foreground: #9f25f0;
   --accent: #3a3aff;
-  --accent-foreground: #ffffff;  
+  --accent-foreground: #9f25f0; 
+  /* --background: 0 0% 100%;
+  --foreground: 265 85% 60%;
+  --accent: 240 100% 60%;  
+  --accent-foreground: 265 85% 60%;  */
 }
 
 .rdp {
@@ -84,11 +88,26 @@ body {
   top: 0;
 }
 
+/* .btn-foreground {
+  background-color: var(--foreground);
+  color: white;
+} */
+
 .btn-foreground {
+  width: 100%;
   background-color: var(--foreground);
   color: white;
 }
+/* 
+.btn-foreground:hover {
+  background-color: hsl(var(--foreground) / 0.9);
+} */
+
 .btn-foreground:disabled {
   background-color: #ccc;
   color: #888;
+}
+
+.carousel-arrow {
+  color: var(--foreground);
 }

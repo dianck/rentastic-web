@@ -40,8 +40,11 @@ export default function Home() {
                     </div>
                   </CarouselItem>
                 </CarouselContent>
-              <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10" />
-              <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10" />
+              {/* <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10" />
+              <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10" /> */}
+              <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 carousel-arrow" />
+              <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 carousel-arrow" />
+
             </Carousel>
             {/* Tambahkan overlay transparan dengan warna foreground */}
             {/* <div className="absolute inset-0 bg-foreground/40" /> */}

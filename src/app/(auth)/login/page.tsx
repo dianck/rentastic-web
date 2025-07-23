@@ -22,7 +22,7 @@ export default function UserLoginPage() {
       <div className="w-full max-w-md">
         <Link href="/" className="flex justify-center mb-6 items-center gap-2 font-bold text-2xl text-primary">
           <Home className="h-7 w-7" />
-          <span className="font-headline">NestEase</span>
+          <span className="font-headline">{process.env.NEXT_PUBLIC_APP_NAME || 'NestEase'}</span>
         </Link>
         <Card>
           <CardHeader className="space-y-1 text-center">
@@ -39,7 +39,7 @@ export default function UserLoginPage() {
                 <span className="w-full border-t" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-card px-2 text-muted-foreground">
+                <span className="bg-white px-2 text-muted-foreground">
                   Or continue with
                 </span>
               </div>
@@ -51,15 +51,20 @@ export default function UserLoginPage() {
             <div className="space-y-2">
               <div className="flex items-center">
                 <Label htmlFor="password">Password</Label>
-                <Link href="#" className="ml-auto inline-block text-sm underline">
+                <Link href="/forgot-password" className="ml-auto inline-block text-sm underline">
                   Forgot your password?
                 </Link>
               </div>
               <Input id="password" type="password" required />
             </div>
-            <Button type="submit" className="w-full" style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }}>
+            <Button type="submit" className="btn-foreground">
               Login
             </Button>
+
+
+
+
+
           </CardContent>
           <CardFooter className="text-center text-sm">
             <p className="w-full">

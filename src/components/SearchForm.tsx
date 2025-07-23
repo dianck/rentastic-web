@@ -85,7 +85,7 @@ export function SearchForm() {
 
         <Button
           className="text-white md:col-start-4"
-          style={{ backgroundColor: 'hsl(var(--accent))' }}
+          style={{ backgroundColor: 'var(--accent)' }}
         >
           <Search className="mr-2 h-4 w-4 text-white" /> Search
         </Button>

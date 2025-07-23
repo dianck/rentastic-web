@@ -16,56 +16,38 @@ function GoogleIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export default function UserRegisterPage() {
+export default function UserLoginPage() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-background px-4">
       <div className="w-full max-w-md">
         <Link href="/" className="flex justify-center mb-6 items-center gap-2 font-bold text-2xl text-primary">
           <Home className="h-7 w-7" />
           <span className="font-headline">{process.env.NEXT_PUBLIC_APP_NAME || 'NestEase'}</span>
-
         </Link>
         <Card>
           <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-2xl font-bold">Create a User Account</CardTitle>
-            <CardDescription>Enter your information to create an account</CardDescription>
+            <CardTitle className="text-2xl font-bold">Welcome Back, User!</CardTitle>
+            <CardDescription>Enter your email below to reset your password</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <Button variant="outline" className="w-full">
-              <GoogleIcon className="mr-2 h-4 w-4" />
-              Sign up with Google
-            </Button>
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white px-2 text-muted-foreground">
-                  Or continue with
-                </span>
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="full-name">Full Name</Label>
-              <Input id="full-name" placeholder="John Doe" required />
-            </div>
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input id="email" type="email" placeholder="m@example.com" required />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" required />
-            </div>
             <Button type="submit" className="btn-foreground">
-              Create Account
+              Submit
             </Button>
+
+
+
+
+
           </CardContent>
           <CardFooter className="text-center text-sm">
-             <p className="w-full">
-                Already have an account?{" "}
-                <Link href="/login" className="underline">
-                    Log in
+            <p className="w-full">
+                Don&apos;t have an account?{" "}
+                <Link href="/register" className="underline">
+                    Sign up
                 </Link>
             </p>
           </CardFooter>

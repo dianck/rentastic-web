@@ -11,7 +11,7 @@ export function Header() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2 font-bold text-lg text-primary">
           <Home className="h-6 w-6" />
-          <span className="font-headline">NestEase</span>
+          <span className="font-headline">{process.env.NEXT_PUBLIC_APP_NAME || 'NestEase'}</span>
         </Link>
         <nav className="hidden md:flex items-center gap-4">
           <Button variant="ghost" asChild>
@@ -25,7 +25,8 @@ export function Header() {
           <Button variant="ghost" asChild>
             <Link href="/login">Log in</Link>
           </Button>
-          <Button asChild style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }}>
+          {/* <Button asChild style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }}> */}
+          <Button asChild  className="btn-foreground">          
             <Link href="/register">Sign up</Link>
           </Button>
         </div>

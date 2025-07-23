@@ -9,7 +9,7 @@ export function Footer() {
           <div className="space-y-2">
             <Link href="/" className="flex items-center gap-2 font-bold text-lg text-primary">
               <Home className="h-6 w-6" />
-              <span className="font-headline">NestEase</span>
+              <span className="font-headline">{process.env.NEXT_PUBLIC_APP_NAME || 'NestEase'}</span>
             </Link>
             <p className="text-sm text-muted-foreground">Find your perfect stay with ease.</p>
           </div>
@@ -40,7 +40,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t pt-4 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} NestEase. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} {process.env.NEXT_PUBLIC_APP_NAME || 'NestEase'}. All rights reserved.</p>
         </div>
       </div>
     </footer>
