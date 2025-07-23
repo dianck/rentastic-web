@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { DayPicker, DayPickerProps } from "react-day-picker"
+import { enUS } from "date-fns/locale" // Import locale
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 
@@ -17,10 +18,13 @@ function Calendar({
 }: CalendarProps) {
   return (
     <DayPicker
+      locale={enUS}
+      weekStartsOn={0} // Sunday
       showOutsideDays={showOutsideDays}
+      numberOfMonths={2} // Show 2 months side-by-side
       className={cn("p-3 bg-foreground text-white rounded-md", className)}
       classNames={{
-        months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+        months: "flex flex-col sm:flex-row gap-8", // side-by-side
         month: "space-y-4",
         caption: "flex justify-center pt-1 relative items-center",
         caption_label: "text-sm font-medium text-white",
@@ -31,11 +35,10 @@ function Calendar({
         ),
         nav_button_previous: "absolute left-1",
         nav_button_next: "absolute right-1",
-        table: "w-full border-collapse space-y-1",
+        table: "w-full border-collapse",
         head_row: "flex",
-        head_cell:
-          "text-white rounded-md w-9 font-normal text-[0.8rem]",
-        row: "flex w-full mt-2",
+        head_cell: "text-white font-normal text-[0.8rem] w-9 h-9 text-center",
+        row: "flex",
         cell:
           "h-9 w-9 text-center text-sm p-0 relative text-white [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
         day: cn(
@@ -49,17 +52,14 @@ function Calendar({
         day_outside:
           "day-outside text-white/60 aria-selected:bg-accent/50 aria-selected:text-white/60",
         day_disabled: "text-white/40 opacity-50",
-        day_range_middle:
-          "aria-selected:bg-accent aria-selected:text-white",
+        day_range_middle: "aria-selected:bg-accent aria-selected:text-white",
         day_hidden: "invisible",
         ...classNames,
       }}
       {...props}
     />
-
   )
 }
-                   
 
 Calendar.displayName = "Calendar"
 export { Calendar }

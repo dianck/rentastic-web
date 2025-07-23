@@ -7,7 +7,9 @@ import { Button } from "@/components/ui/button";
 
 export function Header() {
   return (
-    <header className="bg-card shadow-sm sticky top-0 z-40">
+    // <header className="bg-card shadow-sm sticky top-0 z-40">
+    <header className="bg-card relative z-100 overflow-visible">
+
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2 font-bold text-lg text-primary">
           <Home className="h-6 w-6" />
@@ -26,8 +28,9 @@ export function Header() {
             <Link href="/login">Log in</Link>
           </Button>
           {/* <Button asChild style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }}> */}
-          <Button asChild  className="btn-foreground">          
-            <Link href="/register">Sign up</Link>
+          {/* <Button asChild className="btn-foreground text-white">       */}
+          <Button asChild style={{ backgroundColor: 'var(--accent-foreground)', color: 'var(--background)' }}>
+          <Link href="/register">Sign up</Link>
           </Button>
         </div>
       </div>
