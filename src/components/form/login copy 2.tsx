@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -109,49 +107,66 @@ export default function FormLogin() {
             <Formik
               initialValues={initialValues}
               validationSchema={LoginSchema}
-              onSubmit={onLogin}
+              onSubmit={(values, action) => {
+                onLogin(values, action);
+              }}
             >
-              {({ errors, touched, isSubmitting }: FormikProps<ILoginForm>) => (
-                <Form className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="login">Login</Label>
-                    <Field
-                      id="login"
-                      name="login"
-                      as={Input}
-                      placeholder="Enter your email or username"
-                    />
-                    {touched.login && errors.login && (
-                      <div className="text-red-500 text-sm">{errors.login}</div>
-                    )}
-                  </div>
+              {/* {(props: FormikProps<ILoginForm>) => {
+                const { touched, errors, isSubmitting } = props;
+                return (
+                  <Form>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="password">Password</Label>
-                    <Field
-                      id="password"
-                      name="password"
-                      type="password"
-                      as={Input}
-                      placeholder="Enter your password"
-                    />
-                    {touched.password && errors.password && (
-                      <div className="text-red-500 text-sm">{errors.password}</div>
-                    )}
-                  </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email</Label>
+                      <Field
+                        name="login"
+                        type="text"
+                        placeholder="m@example.com"
+                        className="mb-2 p-2 border border-gray-600 rounded-md "
+                        aria-describedby="loginError"
+                        data-cy="username-input"
+                      />
+                      {touched.login && errors.login && (
+                        <div className="text-red-500 text-[12px] -mt-2">
+                          {errors.login}
+                        </div>
+                      )}                      
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center">
+                        <Label htmlFor="password">Password</Label>
+                        <Link href="/forgot-password" className="ml-auto inline-block text-sm underline">
+                          Forgot your password?
+                        </Link>
+                      </div>
 
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="py-1 px-2 w-full btn-foreground text-sm rounded-md"
-                    data-cy="submit-login"
-                  >
-                    {isSubmitting ? "Logging in..." : "Login"}
-                  </button>
-                </Form>
-              )}
+                      <Field
+                        name="password"
+                        type="password"
+                        className="mb-2 p-2 border border-gray-600 rounded-md"
+                        data-cy="password-input"
+                      />
+                      {touched.password && errors.password && (
+                        <div className="text-red-500 text-[12px] -mt-2">
+                          {errors.password}
+                        </div>
+                      )}
+                    </div>
+                    
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="py-1 px-2 w-full btn-foreground text-sm rounded-md"
+                      data-cy="submit-login"
+                    >
+                      {isSubmitting ? "Loading ..." : "Sign in"}
+                    </button>
+
+
+                  </Form>
+                );
+              }} */}
             </Formik>
-
 
 
           </CardContent>
