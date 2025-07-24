@@ -1,3 +1,4 @@
+import { Bounce, ToastContainer } from "react-toastify";
 
 
 export default async function HomeLayout({
@@ -11,6 +12,15 @@ export default async function HomeLayout({
   return (
     <div>
       { children }
+        <ToastContainer
+          position="bottom-right"
+          autoClose={3000}
+          draggable
+          theme="dark"
+          closeOnClick
+          transition={Bounce}
+        />
+
     </div>
   );
 }
