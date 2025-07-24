@@ -1,44 +1,14 @@
 "use client"
 
-// import Image from "next/image";
-import { useEffect, useRef } from "react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SearchForm } from "@/components/SearchForm";
-import { PropertyCard } from "@/components/PropertyCard";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import { UnsplashCarouselImage } from "@/components/UnsplashCarouselImage";
 import HeroSection from "@/components/section/hero";
 import PropertiesSection from "@/components/section/properties";
 
-// import { Card, CardContent } from "@/components/ui/card";
 
-const featuredProperties = [
-  { id: "1", name: "Villa Moderno", location: "Bali, Indonesia", price: 350, rating: 4.9, imageUrl: "https://placehold.co/400x300.png", imageHint: "modern villa" },
-  { id: "2", name: "Cozy Downtown Loft", location: "Jakarta, Indonesia", price: 120, rating: 4.7, imageUrl: "https://placehold.co/400x300.png", imageHint: "city loft" },
-  { id: "3", name: "Mountain Retreat", location: "Bandung, Indonesia", price: 200, rating: 4.8, imageUrl: "https://placehold.co/400x300.png", imageHint: "mountain cabin" },
-  { id: "4", name: "Seaside Bungalow", location: "Surabaya, Indonesia", price: 250, rating: 4.6, imageUrl: "https://placehold.co/400x300.png", imageHint: "beach bungalow" },
-];
 
 export default function Home() {
-
-  const carouselRef = useRef<any>(null);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (carouselRef.current) {
-        carouselRef.current.scrollNext?.();
-      }
-    }, 5000); // 5 detik
-
-    return () => clearInterval(interval);
-  }, []);  
 
   return (
     <div className="flex flex-col min-h-screen">
