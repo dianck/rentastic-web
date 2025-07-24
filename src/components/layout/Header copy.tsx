@@ -4,12 +4,8 @@ import Link from "next/link";
 // import { Home, BedDouble, PlusCircle } from "lucide-react";
 import { Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Session } from "genkit";
-import { useSession } from "next-auth/react";
-import Logout from "../logout";
 
 export function Header() {
-  const { data: session } = useSession();
   return (
     // <header className="bg-card shadow-sm sticky top-0 z-40">
     <header className="bg-card relative z-100 overflow-visible">
@@ -28,17 +24,14 @@ export function Header() {
           </Button>
         </nav>
         <div className="flex items-center gap-2">
-            {session ? (
-              <Logout />
-            ) : (
-              <Link
-                href="/login"
-                className="text-gray-700 hover:text-indigo-600 transition"
-                data-cy="login-button"
-              >
-                Login
-              </Link>
-            )}
+          <Button variant="ghost" asChild>
+            <Link href="/login">Log in</Link>
+          </Button>
+          {/* <Button asChild style={{ backgroundColor: 'hsl(var(--accent))', color: 'hsl(var(--accent-foreground))' }}> */}
+          {/* <Button asChild className="btn-foreground text-white">       */}
+          <Button asChild style={{ backgroundColor: 'var(--accent-foreground)', color: 'var(--background)' }}>
+          <Link href="/register">Sign up</Link>
+          </Button>
         </div>
       </div>
     </header>

@@ -1,23 +1,7 @@
 "use client"
 
-// import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { SearchForm } from "@/components/SearchForm";
 import { PropertyCard } from "@/components/PropertyCard";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import { UnsplashCarouselImage } from "@/components/UnsplashCarouselImage";
-import HeroSection from "@/components/section/hero";
-import PropertiesSection from "@/components/section/properties";
-
-// import { Card, CardContent } from "@/components/ui/card";
 
 const featuredProperties = [
   { id: "1", name: "Villa Moderno", location: "Bali, Indonesia", price: 350, rating: 4.9, imageUrl: "https://placehold.co/400x300.png", imageHint: "modern villa" },
@@ -26,8 +10,8 @@ const featuredProperties = [
   { id: "4", name: "Seaside Bungalow", location: "Surabaya, Indonesia", price: 250, rating: 4.6, imageUrl: "https://placehold.co/400x300.png", imageHint: "beach bungalow" },
 ];
 
-export default function Home() {
 
+const PropertiesSection = () => {
   const carouselRef = useRef<any>(null);
 
   useEffect(() => {
@@ -40,15 +24,24 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);  
 
+
+
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <main className="flex-grow">
-          <HeroSection />
-          <SearchForm />
-          <PropertiesSection />
-      </main>
-      <Footer />
-    </div>
+        <section className="py-16 sm:py-24 bg-background">
+          <div className="container mx-auto px-4 md:px-6">
+            <div className="text-center space-y-2 mb-12">
+              <h2 className="text-3xl font-headline font-bold">Featured Properties</h2>
+              <p className="text-muted-foreground max-w-xl mx-auto">Handpicked properties that we think you will love. Book your dream vacation today.</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {featuredProperties.map((prop) => (
+                <PropertyCard key={prop.id} {...prop} />
+              ))}
+            </div>
+          </div>
+        </section>
+
   );
-}
+};
+
+export default PropertiesSection;
