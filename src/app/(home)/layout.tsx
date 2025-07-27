@@ -17,7 +17,8 @@ export default async function HomeLayout({
 
 
   if (!session) {
-    redirect("/login");
+    redirect("/");
+    // redirect("/login");
   }
 
   return <ClientLayout>{children}</ClientLayout>;
