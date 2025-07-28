@@ -18,6 +18,8 @@ export default function HomePage() {
       <h1>Welcome, {session?.user?.username}</h1>
       <p>Email: {session?.user?.email}</p>
       <p>Role: {session?.user?.role}</p>
+      <p>SESSION: {JSON.stringify(session)}</p>
+
     </div>
   );
 }

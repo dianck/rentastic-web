@@ -4,7 +4,6 @@ import Link from "next/link";
 // import { Home, BedDouble, PlusCircle } from "lucide-react";
 import { Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Session } from "genkit";
 import { useSession } from "next-auth/react";
 import Logout from "../logout";
 
@@ -27,18 +26,22 @@ export function Header() {
             <Link href="/tenant/register">List your property</Link>
           </Button>
         </nav>
+
         <div className="flex items-center gap-2">
-            {session ? (
+          {session?.user?.email ? (
+            <>
+              <span>{session.user.name}</span>
               <Logout />
-            ) : (
-              <Link
-                href="/login"
-                className="text-gray-700 hover:text-indigo-600 transition"
-                data-cy="login-button"
-              >
-                Login
-              </Link>
-            )}
+            </>
+          ) : (
+            <Link
+              href="/login"
+              className="text-gray-700 hover:text-indigo-600 transition"
+              data-cy="login-button"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </header>

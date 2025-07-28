@@ -99,7 +99,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           token.image = result.user.avatar;
           token.role = result.user.role;
           token.userToken = result.token; // if backend gives access token
-          token.isAvailable = result.user.isAvailable; 
 
         } catch (err) {
           console.error("Error calling login-google:", err);
@@ -124,44 +123,24 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     async session({ token, session }) {
       console.log("Session Callback:", { token, session });
 
-      const isAvailable = token.isAvailable === true || token.isAvailable === "true" || token.isAvailable === "1";
-
-
-      if (!isAvailable) {
-        console.log("User is not available. Clearing session.");
-
-        session.user = {
-          id: "",
-          name: "",
-          email: "",
-          image: "",
-          role: "",
-          emailVerified: null,
-        };
-
-        (session as CustomSession).userToken = "";
-        // session.expires = new Date(0); // expired now
-
-
-        return session;
-      }
-
       session.user = {
         ...session.user,
         id: token.id ? String(token.id) : "",
         name: token.name ?? "",
         email: token.email ?? "",
-        image: typeof token.image === "string" ? token.image : "",
-        role: typeof token.role === "string" ? token.role : "",
+        image: typeof token.image === "string" ? token.image : "", // ✅ fix disini
+        role: typeof token.role === "string" ? token.role : "", // ✅ fix disini
+
       };
 
       (session as CustomSession).userToken =
-        typeof token.userToken === "string" ? token.userToken : "";
+      typeof token.userToken === "string" ? token.userToken : "";
+
+
 
       console.log("Custom Session:", session);
+
       return session;
-    }
-
-
+    },
   },
 });

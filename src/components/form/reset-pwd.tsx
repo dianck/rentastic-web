@@ -7,13 +7,23 @@ import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik";
 import { useRouter } from "next/navigation";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Home } from "lucide-react";
+
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import Link from "next/link";
 
 const ResetSchema = yup.object().shape({
-  password: yup
-    .string()
-    .required("Password is required")
-    .min(6, "Min 6 characters"),
+  password: yup.string().required("Password is required").min(6, "Min 6 characters"),
 });
 
 interface IResetForm {
@@ -28,10 +38,7 @@ export default function ResetPasswordPage({ token }: { token: string }) {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const router = useRouter();
 
-  const initialValues: IResetForm = {
-    password: "",
-    email: "",
-  };
+  const initialValues: IResetForm = { password: "", email: "" };
 
   const onVerify = useCallback(async () => {
     try {
@@ -48,7 +55,6 @@ export default function ResetPasswordPage({ token }: { token: string }) {
       if (err instanceof AxiosError && err.response?.status === 404) {
         errorMsg = err.response?.data?.message || "Link not valid or expired.";
       }
-
       setMsg(errorMsg);
       setStatus("error");
     }
@@ -63,7 +69,7 @@ export default function ResetPasswordPage({ token }: { token: string }) {
       const { data } = await axios.post("/auth/reset-pwd", value);
       toast.success(data.message);
       action.resetForm();
-      router.push("/login");      
+      router.push("/login");
     } catch (err) {
       action.setSubmitting(false);
       if (err instanceof AxiosError) {
@@ -73,66 +79,78 @@ export default function ResetPasswordPage({ token }: { token: string }) {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-4 border rounded-md shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Reset Password</h2>
-      {status === "idle" && <p className="text-gray-500">{msg}</p>}
+    <div className="w-full max-w-md mx-auto">
+      <Link
+        href="/"
+        className="flex justify-center mb-6 items-center gap-2 font-bold text-2xl text-primary"
+      >
+        <Home className="h-7 w-7" />
+        <span className="font-headline">
+          {process.env.NEXT_PUBLIC_APP_NAME || "NestEase"}
+        </span>
+      </Link>
 
-      {status === "error" && (
-        <div className="text-red-500 text-sm">
-          {msg}
-        </div>
-      )}
+      <Card>
+        <CardHeader className="text-center space-y-1">
+          <CardTitle className="text-2xl font-bold">Reset Password</CardTitle>
+          <CardDescription>
+            {status === "idle" && msg}
+            {status === "error" && (
+              <span className="text-red-500 font-medium">{msg}</span>
+            )}
+          </CardDescription>
+        </CardHeader>
 
-      {status === "success" && (
-        <Formik
-          enableReinitialize
-          initialValues={{ ...initialValues, email }}
-          validationSchema={ResetSchema}
-          onSubmit={onReset}
-        >
-          {(props: FormikProps<IResetForm>) => {
-            const { touched, errors, isSubmitting } = props;
-            return (
-              <Form>
-                <Field type="hidden" name="email" />
+        {status === "success" && (
+          <Formik
+            enableReinitialize
+            initialValues={{ ...initialValues, email }}
+            validationSchema={ResetSchema}
+            onSubmit={onReset}
+          >
+            {(props: FormikProps<IResetForm>) => {
+              const { touched, errors, isSubmitting } = props;
+              return (
+                <Form>
+                  <CardContent className="space-y-4">
+                    <Field type="hidden" name="email" />
 
-                <div className="flex flex-col relative">
-                  <label htmlFor="password" className="text-md">New Password</label>
-                  <Field
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    className="mb-2 p-2 border border-gray-600 rounded-md pr-10"
-                    aria-describedby="passwordError"
-                    data-cy="password-input"
-                  />
-                  <div
-                    className="absolute right-3 top-[38px] cursor-pointer text-gray-500"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                  </div>
-                  {touched.password && errors.password && (
-                    <div className="text-red-500 text-[12px] -mt-2">
-                      {errors.password}
+                    <div className="relative space-y-2">
+                      <Label htmlFor="password">New Password</Label>
+                      <Field
+                        as={Input}
+                        id="password"
+                        name="password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Enter your new password"
+                      />
+                      <div
+                        className="absolute right-3 top-[38px] cursor-pointer text-gray-500"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                      </div>
+                      {touched.password && errors.password && (
+                        <p className="text-red-500 text-sm">{errors.password}</p>
+                      )}
                     </div>
-                  )}
-                </div>
+                  </CardContent>
 
-                <div className="mt-12">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="py-1 px-2 w-full btn-foreground text-sm rounded-md"
-                    data-cy="submit-login"
-                  >
-                    {isSubmitting ? "Loading ..." : "Submit"}
-                  </button>
-                </div>
-              </Form>
-            );
-          }}
-        </Formik>
-      )}
+                  <CardFooter>
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="py-1 px-2 w-full btn-foreground text-sm rounded-md"
+                    >
+                      {isSubmitting ? "Resetting..." : "Submit"}
+                    </Button>
+                  </CardFooter>
+                </Form>
+              );
+            }}
+          </Formik>
+        )}
+      </Card>
     </div>
   );
 }

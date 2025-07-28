@@ -11,7 +11,8 @@ export default async function Page({
 //   console.log("Token FE:", token);
 
   return (
-    <div>
+    <div className="flex items-center justify-center min-h-screen bg-background px-4">
+
       {token ? (
         <ResetPasswordPage token={token} />
       ) : (
