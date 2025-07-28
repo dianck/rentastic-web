@@ -109,6 +109,14 @@ export default function FormLoginForm() {
                   {touched.password && errors.password && (
                     <div className="text-red-500 text-sm">{errors.password}</div>
                   )}
+                  <div className="text-right">
+                    <Link
+                      href="/forgot-password"
+                      className="text-xs hover:underline"
+                    >
+                      Forgot Password?
+                    </Link>
+                  </div>
                 </div>
 
                 <button
