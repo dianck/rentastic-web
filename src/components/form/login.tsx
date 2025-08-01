@@ -97,7 +97,7 @@ export default function FormLoginForm() {
               <Form className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="login">Login</Label>
-                  <Field id="login" name="login" as={Input} placeholder="Enter your email or username" />
+                  <Field id="login" name="login" as={Input} placeholder="Enter your email address" />
                   {touched.login && errors.login && (
                     <div className="text-red-500 text-sm">{errors.login}</div>
                   )}
