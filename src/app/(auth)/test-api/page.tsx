@@ -28,7 +28,7 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen px-4 bg-gray-100">
-      <h1 className="text-2xl font-bold mb-4">API Test Page</h1>
+      <h1 className="text-2xl font-bold mb-4">API Test Page 123</h1>
 
       <button
         onClick={testApi}
