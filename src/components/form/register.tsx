@@ -12,6 +12,8 @@ import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik";
 import axios from "@/lib/axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import React from "react";
+import { signIn } from "next-auth/react";
 
 function GoogleIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -45,6 +47,7 @@ interface IRegisterForm {
 
 export default function FormRegister() {
   const router = useRouter();
+  const [isGoogleLoading, setGoogleLoading] = React.useState(false);
 
   const initialValues: IRegisterForm = {
     username: "",
@@ -85,10 +88,23 @@ export default function FormRegister() {
             <CardDescription>Enter your information to create an account</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <Button variant="outline" className="w-full">
+            {/* <Button variant="outline" className="w-full">
               <GoogleIcon className="mr-2 h-4 w-4" />
               Sign up with Google
-            </Button>
+            </Button> */}
+
+          <div
+            onClick={() => {
+              setGoogleLoading(true);
+              signIn("google", { callbackUrl: "/home" });
+            }}
+            className="w-full border px-4 py-2 rounded-md flex items-center justify-center cursor-pointer hover:bg-gray-100"
+          >
+            <GoogleIcon className="mr-2 h-4 w-4" />
+            {isGoogleLoading ? "Redirecting..." : "Sign up with Google"}
+          </div>
+
+            
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t" />
@@ -161,7 +177,8 @@ export default function FormRegister() {
                         <button
                           type="submit"
                           disabled={isSubmitting}
-                          className="w-full py-2 px-4 bg-gray-600 text-white rounded-md text-sm disabled:bg-gray-400"
+                          className="py-1 px-2 w-full text-sm rounded-md cursor-pointer text-white bg-[#9f25f08c] hover:bg-[#9f25f0] disabled:opacity-50"
+
                         >
                           {isSubmitting ? "Loading ..." : "Sign up"}
                         </button>

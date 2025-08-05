@@ -8,6 +8,7 @@ interface User extends NextAuthUser {
   avatar: string;
   // picture: string;
   userToken: string;
+  auth_type: string;
   role: string | null;
   isAvailable: string | null;
 }
@@ -16,6 +17,7 @@ interface CustomSession extends Session {
   user: Session["user"] & {
     id: string;
     avatar: string;
+    auth_type: string;
     role: string | null;
   };
   userToken: string;
@@ -39,6 +41,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           // avatar: "Avatar-123",
           // picture: credentials.picture as string,
           userToken: credentials.userToken as string,
+          auth_type: credentials.auth_type as string,
           role: credentials.role as string,
           isAvailable: credentials.isAvailable as string,
         };
@@ -91,6 +94,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
           const result = await res.json();
           console.log("Backend login-google response:", result);
+          console.log("Backend result.auth_type:", result.user.auth_type);
 
           // Inject ke token
           token.id = result.user.id;
@@ -99,7 +103,9 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           token.image = result.user.avatar;
           token.role = result.user.role;
           token.userToken = result.token; // if backend gives access token
+          token.auth_type = result.user.auth_type;
           token.isAvailable = result.user.isAvailable; 
+          console.log("token.auth_type: ", token.auth_type);
 
         } catch (err) {
           console.error("Error calling login-google:", err);
@@ -115,6 +121,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         token.image = (user as any).avatar ?? user.image ?? "";
         token.userToken = (user as any).userToken ?? "";
         token.role = (user as any).role ?? null;
+        token.auth_type = user.auth_type;
         token.isAvailable = (user as any).isAvailable ?? null;
       }
 
@@ -136,6 +143,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           email: "",
           image: "",
           role: "",
+          auth_type: "",
           emailVerified: null,
         };
 
@@ -153,6 +161,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         email: token.email ?? "",
         image: typeof token.image === "string" ? token.image : "",
         role: typeof token.role === "string" ? token.role : "",
+        auth_type: typeof token.auth_type === "string" ? token.auth_type : "",
       };
 
       (session as CustomSession).userToken =
