@@ -9,6 +9,7 @@ declare module "next-auth" {
       email: string;
       avatar?: string;
       picture?: string;
+      auth_type: string;
       role?: string | null;    // tambahkan role di sini
     };
     userToken?: string;
@@ -23,6 +24,7 @@ declare module "next-auth" {
     picture?: string;
     role?: string | null;     // juga di User (opsional)
     userToken?: string;
+    auth_type: string;
   }
 
   interface User {
@@ -34,6 +36,7 @@ declare module "next-auth" {
     picture?: string;
     role?: string | null;     // juga di JWT
     userToken?: string;
+    auth_type: string;
   }
 
 

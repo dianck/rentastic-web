@@ -15,6 +15,17 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import Link from "next/link";
 import { Home } from "lucide-react";
 
+function GoogleIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M20.94 11.05c0-1.23-.1-2.45-.29-3.63H12v6.86h5.03c-.22 1.48-.86 2.76-1.88 3.63v4.46h5.7c3.34-3.08 5.3-7.61 5.3-11.32z" fill="#4285F4" stroke="none" />
+      <path d="M12 22c3.24 0 5.95-1.07 7.93-2.9l-5.7-4.46c-1.07.72-2.45 1.15-4.23 1.15-3.24 0-6-2.15-7-5.08H.79v4.6C2.76 20.07 6.95 22 12 22z" fill="#34A853" stroke="none"/>
+      <path d="M5 14.1c-.2-.6-.3-1.23-.3-1.88s.1-1.28.3-1.88V5.79H.79C.29 6.95 0 8.35 0 9.8c0 1.45.29 2.85.79 4.01l4.21-3.71z" fill="#FBBC05" stroke="none"/>
+      <path d="M12 5.23c1.73 0 3.28.6 4.5 1.83l4.85-4.85C18.95.88 15.7.01 12 .01 6.95.01 2.76 2.93.79 7.29l4.21 3.29c1-2.93 3.76-5.08 7-5.08z" fill="#EA4335" stroke="none"/>
+    </svg>
+  );
+}
+
 interface ILoginForm {
   login: string;
   password: string;
@@ -43,6 +54,7 @@ export default function FormLoginForm() {
         email: data.user.email,
         avatar: data.user.avatar,
         userToken: data.token,
+        auth_type: data.user.auth_type,
         role: data.user.role,
         isAvailable: data.user.isAvailable,
       });
@@ -78,6 +90,7 @@ export default function FormLoginForm() {
             }}
             className="w-full border px-4 py-2 rounded-md flex items-center justify-center cursor-pointer hover:bg-gray-100"
           >
+            <GoogleIcon className="mr-2 h-4 w-4" />
             {isGoogleLoading ? "Redirecting..." : "Login with Google"}
           </div>
 
@@ -122,7 +135,10 @@ export default function FormLoginForm() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="py-1 px-2 w-full btn-foreground text-sm rounded-md"
+                  // className="py-1 px-2 w-full btn-foreground text-sm rounded-md cursor-pointer"
+
+                  className="py-1 px-2 w-full text-sm rounded-md cursor-pointer text-white bg-[#9f25f08c] hover:bg-[#9f25f0] disabled:opacity-50"
+
                 >
                   {isSubmitting ? "Logging in..." : "Login"}
                 </button>

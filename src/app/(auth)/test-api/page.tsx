@@ -10,13 +10,29 @@ export default function HomePage() {
   const testApi = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("/test-prisma",{
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
-        },
-      }); 
+      // const res = await axios.get("/test-prisma",{
+      //   headers: {
+      //     Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
+      //   },
+      //   params: {
+      //     email: "dianck2002@gmail.com", // kalau endpoint terima dari query
+      //   },
+      // });
 
-     
+      const res = await axios.post(
+        "/user-profile/get",
+        {
+          email: "dianck2002@gmail.com", // <-- body
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
+          },
+        }
+      );
+   
+
+
       setResponse(JSON.stringify(res.data, null, 2));
     } catch (err: any) {
       setResponse(err?.response?.data?.message || "API error");
