@@ -14,7 +14,10 @@ export default function EditProfilePage() {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <ProfileSidebar />
+      <div className="hidden md:block">
+        <ProfileSidebar />
+      </div>
+
       <main className="flex-1 p-8">
         <h1 className="text-2xl font-semibold mb-6">Settings</h1>
 

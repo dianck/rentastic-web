@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import {
   FaUser, FaGift, FaCreditCard, FaList, FaPlane, FaUndoAlt,
-  FaBell, FaUserFriends, FaInfoCircle, FaPowerOff, FaStar
+  FaBell, FaUserFriends, FaInfoCircle, FaPowerOff, FaStar,
+  FaHome
 } from 'react-icons/fa';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { signOut, useSession } from 'next-auth/react';
@@ -46,13 +47,19 @@ export default function UserDropdown() {
                 onClick={() => router.push('/profile')} 
             />
 
+            <MenuItem 
+                icon={<FaHome />} 
+                label="Register Property"
+                onClick={() => router.push('/reg-property')} 
+            />
+
             <MenuItem icon={<FaGift />} label="Reward Zone" badge="New!" />
             <MenuItem icon={<FaCreditCard />} label="My Cards" />
             <MenuItem icon={<FaList />} label="Purchase List" />
             <MenuItem icon={<FaPlane />} label="My Booking" />
             <MenuItem icon={<FaUndoAlt />} label="Refund" badge="New!" />
-            <MenuItem icon={<FaBell />} label="Flight Price Alerts" />
-            <MenuItem icon={<FaUserFriends />} label="Saved Passenger Details" />
+            {/* <MenuItem icon={<FaBell />} label="Flight Price Alerts" />
+            <MenuItem icon={<FaUserFriends />} label="Saved Passenger Details" /> */}
             <MenuItem 
                 icon={<FaInfoCircle />} 
                 label="Promo Info"
