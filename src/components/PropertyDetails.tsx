@@ -270,7 +270,7 @@ export default function PropertyDetailsForm() {
         <div className="flex gap-4">
           {/* Country Code */}
           <div className="w-1/3">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Country Code</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Country</label>
             <input
               type="text"
               value={countryCode}
