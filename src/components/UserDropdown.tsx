@@ -24,8 +24,12 @@ export default function UserDropdown() {
         className="flex items-center gap-2 px-3 py-2 bg-foreground text-white hover:brightness-75 rounded-md"
       >
         <BsFillPersonFill className="text-lg" />
-        <span>{userName}</span>
-        <span className="font-semibold">| 0 Points</span>
+        <span>
+          {userName && userName.length > 10
+            ? `${userName.slice(0, 7)}...`
+            : userName}
+        </span>
+        {/* <span className="font-semibold">| 0 Points</span> */}
       </button>
 
       {open && (
