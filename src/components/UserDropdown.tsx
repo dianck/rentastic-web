@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   FaUser, FaGift, FaCreditCard, FaList, FaPlane, FaUndoAlt,
   FaBell, FaUserFriends, FaInfoCircle, FaPowerOff, FaStar,
@@ -10,12 +10,27 @@ import { BsFillPersonFill } from 'react-icons/bs';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
+
+function useIsLaptop() {
+  const [isLaptop, setIsLaptop] = useState(false);
+
+  useEffect(() => {
+    const checkSize = () => setIsLaptop(window.innerWidth >= 1024); // Tailwind lg breakpoint
+    checkSize();
+    window.addEventListener("resize", checkSize);
+    return () => window.removeEventListener("resize", checkSize);
+  }, []);
+
+  return isLaptop;
+}
+
 export default function UserDropdown() {
   const { data: session } = useSession();
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
   const userName = session?.user?.name || 'Guest';
+  const isLaptop = useIsLaptop();
 
   return (
     <div className="relative text-sm z-50">
@@ -25,10 +40,13 @@ export default function UserDropdown() {
       >
         <BsFillPersonFill className="text-lg" />
         <span>
-          {userName && userName.length > 10
+          {isLaptop
+            ? userName // tampilkan lengkap di laptop
+            : userName?.length > 10
             ? `${userName.slice(0, 7)}...`
             : userName}
         </span>
+
         {/* <span className="font-semibold">| 0 Points</span> */}
       </button>
 
