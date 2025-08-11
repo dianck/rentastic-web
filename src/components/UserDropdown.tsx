@@ -1,13 +1,28 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   FaUser, FaGift, FaCreditCard, FaList, FaPlane, FaUndoAlt,
-  FaBell, FaUserFriends, FaInfoCircle, FaPowerOff, FaStar
+  FaBell, FaUserFriends, FaInfoCircle, FaPowerOff, FaStar,
+  FaHome
 } from 'react-icons/fa';
 import { BsFillPersonFill } from 'react-icons/bs';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+
+
+function useIsLaptop() {
+  const [isLaptop, setIsLaptop] = useState(false);
+
+  useEffect(() => {
+    const checkSize = () => setIsLaptop(window.innerWidth >= 1024); // Tailwind lg breakpoint
+    checkSize();
+    window.addEventListener("resize", checkSize);
+    return () => window.removeEventListener("resize", checkSize);
+  }, []);
+
+  return isLaptop;
+}
 
 export default function UserDropdown() {
   const { data: session } = useSession();
@@ -15,6 +30,7 @@ export default function UserDropdown() {
   const router = useRouter();
 
   const userName = session?.user?.name || 'Guest';
+  const isLaptop = useIsLaptop();
 
   return (
     <div className="relative text-sm z-50">
@@ -23,8 +39,15 @@ export default function UserDropdown() {
         className="flex items-center gap-2 px-3 py-2 bg-foreground text-white hover:brightness-75 rounded-md"
       >
         <BsFillPersonFill className="text-lg" />
-        <span>{userName}</span>
-        <span className="font-semibold">| 0 Points</span>
+        <span>
+          {isLaptop
+            ? userName // tampilkan lengkap di laptop
+            : userName?.length > 10
+            ? `${userName.slice(0, 7)}...`
+            : userName}
+        </span>
+
+        {/* <span className="font-semibold">| 0 Points</span> */}
       </button>
 
       {open && (
@@ -46,13 +69,19 @@ export default function UserDropdown() {
                 onClick={() => router.push('/profile')} 
             />
 
+            <MenuItem 
+                icon={<FaHome />} 
+                label="Register Property"
+                onClick={() => router.push('/reg-property')} 
+            />
+
             <MenuItem icon={<FaGift />} label="Reward Zone" badge="New!" />
             <MenuItem icon={<FaCreditCard />} label="My Cards" />
             <MenuItem icon={<FaList />} label="Purchase List" />
             <MenuItem icon={<FaPlane />} label="My Booking" />
             <MenuItem icon={<FaUndoAlt />} label="Refund" badge="New!" />
-            <MenuItem icon={<FaBell />} label="Flight Price Alerts" />
-            <MenuItem icon={<FaUserFriends />} label="Saved Passenger Details" />
+            {/* <MenuItem icon={<FaBell />} label="Flight Price Alerts" />
+            <MenuItem icon={<FaUserFriends />} label="Saved Passenger Details" /> */}
             <MenuItem 
                 icon={<FaInfoCircle />} 
                 label="Promo Info"
