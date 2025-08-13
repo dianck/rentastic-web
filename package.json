@@ -46,6 +46,7 @@
     "decode": "^0.3.0",
     "embla-carousel-react": "^8.6.0",
     "formik": "^2.4.6",
+    "framer-motion": "^12.23.12",
     "from": "^0.1.7",
     "genkit": "^1.15.2",
     "heroicons": "^2.2.0",

@@ -6,10 +6,9 @@ import ProfileSidebar from "@/components/ProfileSidebar";
 import PropertyDetailsForm from "../PropertyDetails";
 import PropertyAddressForm from "../PropertyAddressForm";
 import PropertyContactForm from "../PropertyContact";
-import RoomsWizardPage from "../RoomsRegistration";
 
 export default function EditPropertyPage() {
-  const [activeTab, setActiveTab] = useState<'details' | 'rooms'>('details');
+  const [activeTab, setActiveTab] = useState<'details' | 'address' | 'contact'>('details');
   const { data: session } = useSession();
 
   const authType = session?.user?.auth_type;
@@ -37,16 +36,16 @@ export default function EditPropertyPage() {
               Property Details
             </li>
             <li
-              onClick={() => setActiveTab('rooms')}
+              onClick={() => setActiveTab('address')}
               className={`pb-2 ${
-                activeTab === 'rooms'
+                activeTab === 'address'
                   ? 'text-foreground border-b-2 border-foreground'
                   : 'text-gray-400 hover:text-gray-600'
               }`}
             >
-              Rooms
+              Property Address
             </li>
-            {/* <li
+            <li
               onClick={() => setActiveTab('contact')}
               className={`pb-2 ${
                 activeTab === 'contact'
@@ -55,13 +54,14 @@ export default function EditPropertyPage() {
               }`}
             >
               Property Contact
-            </li> */}
+            </li>
           </ul>
         </div>
 
         {/* Content */}
         {activeTab === 'details' && <PropertyDetailsForm />}
-        {activeTab === 'rooms' && <RoomsWizardPage />}
+        {activeTab === 'address' && <PropertyAddressForm />}
+        {activeTab === 'contact' && <PropertyContactForm />} {/* Tab baru */}
       </main>
     </div>
   );
