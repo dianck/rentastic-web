@@ -23,16 +23,20 @@ export default function RoomDetailsStep() {
   const [error, setError] = useState<string | null>(null);
 
   const [showForm, setShowForm] = useState(false);
-  const [roomName, setRoomName] = useState("");
-  const [roomDesc, setRoomDesc] = useState("");
-  const [roomPrice, setRoomPrice] = useState<number | "">("");
-  const [roomCount, setRoomCount] = useState<number | "">("");
+
+  // form state
+  const [unitName, setUnitName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState<number | "">("");
+  const [numberOfRooms, setNumberOfRooms] = useState<number | "">("");
   const [unitType, setUnitType] = useState("");
   const [roomTypes, setRoomTypes] = useState<string[]>([]);
-  const [files, setFiles] = useState<File[]>([]);
-  const [formError, setFormError] = useState<string | null>(null);
+  const [photos, setPhotos] = useState<File[]>([]);
 
-  // fetch room list
+  // error state
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+
+  // Fetch existing rooms
   useEffect(() => {
     const fetchRooms = async () => {
       if (!email) return;
@@ -48,17 +52,17 @@ export default function RoomDetailsStep() {
           }
         );
         setRooms(res.data?.data || []);
-      } catch (err: any) {
-        console.error("Failed to load room details", err);
+      } catch (err) {
         setError("Failed to fetch room details");
       } finally {
         setLoading(false);
       }
     };
+
     fetchRooms();
   }, [email]);
 
-  // fetch room types
+  // Fetch Room Types
   useEffect(() => {
     const fetchRoomTypes = async () => {
       try {
@@ -69,17 +73,20 @@ export default function RoomDetailsStep() {
         });
         const types = res.data?.data || [];
         setRoomTypes(types);
+        // default kosong (tidak langsung pilih)
+        setUnitType("");
       } catch (err) {
         console.error("Failed to load room types", err);
       }
     };
+
     fetchRoomTypes();
   }, []);
 
-  // Upload handlers
+  // file upload handling
   const appendFiles = (fileList: FileList | null) => {
     if (fileList && fileList.length > 0) {
-      setFiles((prev) => [...prev, ...Array.from(fileList)]);
+      setPhotos((prev) => [...prev, ...Array.from(fileList)]);
     }
   };
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,76 +97,49 @@ export default function RoomDetailsStep() {
     appendFiles(e.dataTransfer.files);
   };
   const handleRemove = (index: number) => {
-    setFiles((prev) => prev.filter((_, i) => i !== index));
+    setPhotos((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // validate form
+  // validation
   const validateForm = () => {
-    if (!roomName.trim()) return "Room name is required";
-    if (!roomDesc.trim()) return "Room description is required";
-    if (!unitType) return "Room type is required";
-    if (!roomPrice || roomPrice <= 0) return "Room price must be greater than 0";
-    if (!roomCount || roomCount <= 0)
-      return "Number of rooms must be greater than 0";
-    if (files.length < 5) return "Please upload at least 5 photos";
-    return null;
+    const errors: Record<string, string> = {};
+
+    if (!unitName.trim()) errors.name = "Room name is required";
+    if (!description.trim()) errors.description = "Description is required";
+    if (!price || price <= 0)
+      errors.price = "Price must be greater than 0";
+    if (!numberOfRooms || numberOfRooms <= 0)
+      errors.numberOfRooms = "Number of rooms must be greater than 0";
+    if (!unitType) errors.type = "Room type is required";
+    if (photos.length < 5)
+      errors.photos = "Please upload at least 5 photos";
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
-  // save room
-  const handleSaveRoom = async () => {
-    const validationError = validateForm();
-    if (validationError) {
-      setFormError(validationError);
-      return;
-    }
-    setFormError(null);
+  const handleSubmit = () => {
+    if (!validateForm()) return;
 
-    try {
-      const formData = new FormData();
-      formData.append("email", email);
-      formData.append("name", roomName);
-      formData.append("description", roomDesc);
-      formData.append("type", unitType);
-      formData.append("price", String(roomPrice));
-      formData.append("number_of_rooms", String(roomCount));
+    console.log("Submitting room:", {
+      unitName,
+      description,
+      price,
+      numberOfRooms,
+      unitType,
+      photos,
+    });
 
-      files.forEach((file) => {
-        formData.append("images", file); // harus sama dengan multer.array("images")
-      });
-
-      await axios.post("/property/room-add", formData, {
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      // reset form
-      setRoomName("");
-      setRoomDesc("");
-      setRoomPrice("");
-      setRoomCount("");
-      setUnitType("");
-      setFiles([]);
-      setShowForm(false);
-
-      // refresh room list
-      const res = await axios.post(
-        "/property/detail-room",
-        { email },
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
-          },
-        }
-      );
-      setRooms(res.data?.data || []);
-    } catch (err) {
-      console.error("Failed to save room", err);
-      setFormError("Failed to save room. Please try again.");
-    }
+    // reset form
+    setShowForm(false);
+    setUnitName("");
+    setDescription("");
+    setPrice("");
+    setNumberOfRooms("");
+    setUnitType("");
+    setPhotos([]);
+    setFormErrors({});
   };
-
 
   if (loading) {
     return (
@@ -182,7 +162,7 @@ export default function RoomDetailsStep() {
       <h2 className="text-lg font-bold mb-4">Room Details</h2>
 
       {rooms.length === 0 ? (
-        <p className="text-gray-500 mb-4">No rooms found for this property.</p>
+        <p className="text-gray-500">No rooms found for this property.</p>
       ) : (
         <div className="space-y-4 mb-6">
           {rooms.map((room) => (
@@ -194,6 +174,7 @@ export default function RoomDetailsStep() {
               <p className="text-sm text-gray-600 mb-2">
                 {room.description || "No description available"}
               </p>
+
               <div className="grid grid-cols-2 gap-2 text-sm">
                 <div>
                   <span className="font-medium">Type:</span> {room.type}
@@ -212,38 +193,73 @@ export default function RoomDetailsStep() {
         </div>
       )}
 
+      {/* Button toggle */}
       {!showForm ? (
         <button
           onClick={() => setShowForm(true)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow"
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg"
         >
           Add Room
         </button>
       ) : (
-        <div className="border rounded-lg p-4 bg-gray-50 shadow-md space-y-4">
+        <div className="mt-6 p-4 border rounded-lg bg-gray-50 space-y-4">
           <h3 className="text-md font-semibold mb-2">Add New Room</h3>
-
-          {formError && <p className="text-red-500">{formError}</p>}
 
           <div>
             <label className="block text-sm font-medium">Room Name</label>
             <input
               type="text"
-              value={roomName}
-              onChange={(e) => setRoomName(e.target.value)}
-              className="w-full border p-2 rounded"
+              value={unitName}
+              onChange={(e) => setUnitName(e.target.value)}
+              className="w-full border rounded p-2"
               placeholder="Enter room name"
             />
+            {formErrors.name && (
+              <p className="text-red-500 text-sm">{formErrors.name}</p>
+            )}
           </div>
 
           <div>
             <label className="block text-sm font-medium">Description</label>
             <textarea
-              value={roomDesc}
-              onChange={(e) => setRoomDesc(e.target.value)}
-              className="w-full border p-2 rounded"
-              placeholder="Enter room description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full border rounded p-2"
+              placeholder="Enter description"
             />
+            {formErrors.description && (
+              <p className="text-red-500 text-sm">{formErrors.description}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Price (Rp)</label>
+            <input
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(Number(e.target.value))}
+              className="w-full border rounded p-2"
+              placeholder="Enter price"
+            />
+            {formErrors.price && (
+              <p className="text-red-500 text-sm">{formErrors.price}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Number of Rooms</label>
+            <input
+              type="number"
+              value={numberOfRooms}
+              onChange={(e) => setNumberOfRooms(Number(e.target.value))}
+              className="w-full border rounded p-2"
+              placeholder="Enter number of rooms"
+            />
+            {formErrors.numberOfRooms && (
+              <p className="text-red-500 text-sm">
+                {formErrors.numberOfRooms}
+              </p>
+            )}
           </div>
 
           <div>
@@ -251,48 +267,29 @@ export default function RoomDetailsStep() {
             <select
               value={unitType}
               onChange={(e) => setUnitType(e.target.value)}
-              className="w-full border p-2 rounded"
+              className="w-full border rounded p-2"
             >
               <option value="">-- Select Room Type --</option>
-              {roomTypes.map((type) => (
-                <option key={type} value={type}>
+              {roomTypes.map((type, idx) => (
+                <option key={idx} value={type}>
                   {type}
                 </option>
               ))}
             </select>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">Price</label>
-            <input
-              type="number"
-              value={roomPrice}
-              onChange={(e) => setRoomPrice(Number(e.target.value))}
-              className="w-full border p-2 rounded"
-              placeholder="Enter price"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">Number of Rooms</label>
-            <input
-              type="number"
-              value={roomCount}
-              onChange={(e) => setRoomCount(Number(e.target.value))}
-              className="w-full border p-2 rounded"
-              placeholder="Enter number of rooms"
-            />
+            {formErrors.type && (
+              <p className="text-red-500 text-sm">{formErrors.type}</p>
+            )}
           </div>
 
           {/* Upload Photos */}
           <div>
             <label className="block text-sm font-medium mb-2">
-              Upload Photos (min. 5)
+              Upload Photos (min 5)
             </label>
             <div
               onDrop={handleDrop}
               onDragOver={(e) => e.preventDefault()}
-              className="border-2 border-dashed p-4 text-center cursor-pointer"
+              className="border-2 border-dashed border-gray-400 p-6 text-center rounded"
             >
               <input
                 type="file"
@@ -302,23 +299,26 @@ export default function RoomDetailsStep() {
                 className="hidden"
                 id="file-upload"
               />
-              <label htmlFor="file-upload" className="cursor-pointer">
+              <label
+                htmlFor="file-upload"
+                className="cursor-pointer text-blue-600"
+              >
                 Drag and drop or <b>Upload photos</b>
               </label>
             </div>
-
-            {files.length > 0 && (
+            {photos.length > 0 && (
               <div className="grid grid-cols-5 gap-2 mt-2">
-                {files.map((file, index) => (
-                  <div key={index} className="relative border p-1">
+                {photos.map((file, index) => (
+                  <div key={index} className="relative border rounded">
                     <img
                       src={URL.createObjectURL(file)}
                       alt={`preview-${index}`}
-                      className="w-full h-20 object-cover"
+                      className="w-full h-20 object-cover rounded"
                     />
                     <button
+                      type="button"
                       onClick={() => handleRemove(index)}
-                      className="absolute top-1 right-1 bg-red-600 text-white rounded-full w-5 h-5 text-xs"
+                      className="absolute top-1 right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5"
                     >
                       ×
                     </button>
@@ -326,11 +326,14 @@ export default function RoomDetailsStep() {
                 ))}
               </div>
             )}
+            {formErrors.photos && (
+              <p className="text-red-500 text-sm">{formErrors.photos}</p>
+            )}
           </div>
 
-          <div className="flex gap-2 mt-4">
+          <div className="flex gap-2">
             <button
-              onClick={handleSaveRoom}
+              onClick={handleSubmit}
               className="px-4 py-2 bg-green-600 text-white rounded-lg"
             >
               Save

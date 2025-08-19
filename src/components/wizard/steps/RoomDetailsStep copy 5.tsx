@@ -122,9 +122,8 @@ export default function RoomDetailsStep() {
       formData.append("type", unitType);
       formData.append("price", String(roomPrice));
       formData.append("number_of_rooms", String(roomCount));
-
       files.forEach((file) => {
-        formData.append("images", file); // harus sama dengan multer.array("images")
+        formData.append("photos", file);
       });
 
       await axios.post("/property/room-add", formData, {
@@ -159,7 +158,6 @@ export default function RoomDetailsStep() {
       setFormError("Failed to save room. Please try again.");
     }
   };
-
 
   if (loading) {
     return (

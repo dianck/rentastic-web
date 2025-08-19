@@ -12,9 +12,10 @@ interface PropertyCategory {
   description: string;
 }
 
+
 export default function PropertyCategoryStep() {
-  const { data: session } = useSession();
-  const email = session?.user?.email || "";
+    const { data: session } = useSession();
+    const email = session?.user?.email || "";
 
   const [categories, setCategories] = useState<PropertyCategory[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
@@ -35,6 +36,7 @@ export default function PropertyCategoryStep() {
     }
   };
 
+
   const fetchProfile = async () => {
     if (!email) return;
 
@@ -53,10 +55,16 @@ export default function PropertyCategoryStep() {
         }
       );
 
+      // console.log("Category Only: ", res.data.data[0]);
+
       const data = res.data?.data;
 
       if (Array.isArray(data) && data.length > 0) {
         const categoryId = data[0]?.id;
+
+        // console.log("Response Data 123:", data);
+        // console.log("Category Selected:", categoryId);
+
         if (categoryId) {
           setSelectedCategoryId(categoryId);
         } else {
@@ -72,31 +80,6 @@ export default function PropertyCategoryStep() {
     }
   };
 
-  const handleCategorySelect = async (categoryId: string) => {
-    if (!email) return;
-
-    setError("");
-    setSuccess("");
-
-    // console.log("Selected Category: ", categoryId);
-    try {
-      const res = await axios.post(
-        "/property/detail-category-update",
-        { email, categoryId },
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
-          },
-        }
-      );
-
-      setSelectedCategoryId(categoryId);
-      setSuccess("Property category updated successfully!");
-    } catch (err: any) {
-      setError(err?.response?.data?.message || "Failed to update property category.");
-    }
-  };
-
   useEffect(() => {
     const init = async () => {
       await fetchCategories();
@@ -104,6 +87,7 @@ export default function PropertyCategoryStep() {
     };
     init();
   }, []);
+
 
   if (loading) {
     return (
@@ -124,7 +108,6 @@ export default function PropertyCategoryStep() {
           return (
             <button
               key={cat.id}
-              onClick={() => handleCategorySelect(cat.id)}
               className={`border p-4 rounded text-left transition-colors ${
                 isSelected
                   ? "bg-foreground text-white border-foreground"
