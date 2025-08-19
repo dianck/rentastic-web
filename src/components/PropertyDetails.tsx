@@ -386,13 +386,13 @@ export default function PropertyDetailsForm() {
         </div>
       ))}
 
-      <button
+      {/* <button
         type="button"
         onClick={addPhoneField}
         className="text-blue-600 text-sm font-medium hover:underline mt-2"
       >
         + Add another number
-      </button>
+      </button> */}
     </div>   
 
 
