@@ -530,60 +530,50 @@ export default function RoomDetailsStep() {
               ) : (
 
                 <>
-                  {/* Badge absolute hanya muncul di layar >= sm */}
-                  <span
-                    className={`hidden sm:block absolute top-3 right-3 px-3 py-1 text-xs font-semibold rounded-full ${
-                      room.is_published ? "bg-green-600 text-white" : "bg-gray-400 text-white"
-                    }`}
-                  >
-                    {room.is_published ? "Published" : "Draft"}
-                  </span>
-
-                  {/* Room title */}
-                  <h3 className="text-lg font-semibold mb-1">{room.name}</h3>
-
-                  {/* Badge inline hanya muncul di layar kecil */}
-                  <span
-                    className={`block sm:hidden mb-2 px-3 py-1 text-xs font-semibold rounded-full w-fit ${
-                      room.is_published ? "bg-green-600 text-white" : "bg-gray-400 text-white"
-                    }`}
-                  >
-                    {room.is_published ? "Published" : "Draft"}
-                  </span>
-
-                  {/* Room description */}
-                  <p className="text-sm text-gray-600 mb-4">
-                    {room.description || "No description available"}
-                  </p>
-
-                  {/* Room info grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm mb-4">
-                    <div>
-                      <span className="font-medium">Type:</span> {room.type}
-                    </div>
-                    <div>
-                      <span className="font-medium">Price:</span>{" "}
-                      <span className="font-semibold">
-                        Rp {room.price.toLocaleString("id-ID")}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="font-medium">Rooms Available:</span>{" "}
-                      {room.number_of_rooms}
-                    </div>
-                  </div>
-
-                  {/* Actions */}
-                  <div className="flex justify-end">
-                    <button
-                      onClick={() => handleEditRoom(room)}
-                      className="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 text-sm"
+                  {/* <div className="relative border rounded-xl p-4 shadow-lg bg-white hover:shadow-xl transition-shadow duration-200"> */}
+                    {/* Status badge */}
+                    <span
+                      className={`absolute top-3 right-3 px-3 py-1 text-xs font-semibold rounded-full ${
+                        room.is_published ? "bg-green-600 text-white" : "bg-gray-400 text-white"
+                      }`}
                     >
-                      Edit
-                    </button>
-                  </div>
-                </>
+                      {room.is_published ? "Published" : "Draft"}
+                    </span>
 
+                    {/* Room title & description */}
+                    <h3 className="text-lg font-semibold mb-2">{room.name}</h3>
+                    <p className="text-sm text-gray-600 mb-4">
+                      {room.description || "No description available"}
+                    </p>
+
+                    {/* Room info grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm mb-4">
+                      <div>
+                        <span className="font-medium">Type:</span> {room.type}
+                      </div>
+                      <div>
+                        <span className="font-medium">Price:</span>{" "}
+                        <span className=" font-semibold">
+                          Rp {room.price.toLocaleString("id-ID")}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="font-medium">Rooms Available:</span> {room.number_of_rooms}
+                      </div>
+
+                    </div>
+
+                    {/* Actions */}
+                    <div className="flex justify-end">
+                      <button
+                        onClick={() => handleEditRoom(room)}
+                        className="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 text-sm"
+                      >
+                        Edit
+                      </button>
+                    </div>
+                  {/* </div> */}
+                </>
 
               )}
             </div>
