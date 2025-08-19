@@ -12,11 +12,6 @@ interface PropertyCategory {
   description: string;
 }
 
-// interface PropertyDetailsResponse {
-//   category?: {
-//     categoryId: string;
-//   };
-// }
 
 export default function PropertyCategoryStep() {
     const { data: session } = useSession();

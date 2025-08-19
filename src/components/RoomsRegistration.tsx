@@ -12,11 +12,11 @@ export default function RoomsWizardPage() {
     <Wizard
       steps={[
         <PropertyCategoryStep key="step1" />,
-        <HotelDetailsStep key="step2" />,
-        <RoomDetailsStep key="step3" />,
-        <RoomAmenitiesStep key="step4" />,
-        <RoomPriceStep key="step5" />,
-        <UploadPhotos key="step6" />,
+        // <HotelDetailsStep key="step2" />,
+        <RoomDetailsStep key="step2" />,
+        <RoomAmenitiesStep key="step3" />,
+        <RoomPriceStep key="step4" />,
+        <UploadPhotos key="step5" />,
         // <HotelForm key="step7" />,
       ]}
     />

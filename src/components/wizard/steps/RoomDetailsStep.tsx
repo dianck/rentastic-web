@@ -41,8 +41,8 @@ export default function RoomDetailsStep() {
           onChange={(e) => setUnitType(e.target.value)}
           className="border rounded p-2 w-full"
         >
-          <option value="Double">Double</option>
           <option value="Single">Single</option>
+          <option value="Double">Double</option>
           <option value="Suite">Suite</option>
         </select>
       </div>
@@ -62,7 +62,7 @@ export default function RoomDetailsStep() {
       </div>
 
       {/* Bed Options */}
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <label className="block font-semibold mb-2">
           What beds are available in this room?
         </label>
@@ -94,7 +94,7 @@ export default function RoomDetailsStep() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </WizardStep>
   );
 }
