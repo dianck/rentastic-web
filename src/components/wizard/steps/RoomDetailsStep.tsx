@@ -233,7 +233,7 @@ export default function RoomDetailsStep() {
             setEditingRoomId(null);
             setShowForm(true);
           }}
-          className="px-2 py-1 bg-blue-600 text-white rounded-full shadow text-sm font-medium hover:bg-blue-700 transition-colors cursor-pointer"
+          className="px-2 py-1 bg-blue-600 text-white rounded-lg shadow text-sm font-medium hover:bg-blue-700 transition-colors cursor-pointer"
         >
           Add Room
         </button>
