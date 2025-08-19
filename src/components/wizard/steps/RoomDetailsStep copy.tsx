@@ -217,9 +217,10 @@ export default function RoomDetailsStep() {
 
   return (
     <WizardStep>
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold">Room Details</h2>
+      <h2 className="text-lg font-bold mb-4">Room Details</h2>
 
+      {/* Tombol Add Room di atas daftar */}
+      <div className="mb-4">
         <button
           onClick={() => {
             // reset semua state form agar kosong
@@ -233,7 +234,7 @@ export default function RoomDetailsStep() {
             setEditingRoomId(null);
             setShowForm(true);
           }}
-          className="px-5 py-0 bg-blue-600 text-white rounded-full shadow hover:bg-blue-700 transition-colors cursor-pointer"
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow"
         >
           Add Room
         </button>
@@ -363,14 +364,14 @@ export default function RoomDetailsStep() {
           <div className="flex gap-2 mt-4">
             <button
               onClick={handleSaveRoom}
-              className="px-4 py-1 bg-green-600 text-white rounded-lg cursor-pointer"
+              className="px-4 py-2 bg-green-600 text-white rounded-lg"
             >
               Save
             </button>
             <button
               onClick={() => setShowForm(false)}
-              className="px-4 py-1 bg-gray-400 text-white rounded-lg cursor-pointer"
-            > 
+              className="px-4 py-2 bg-gray-400 text-white rounded-lg"
+            >
               Cancel
             </button>
           </div>
@@ -502,7 +503,7 @@ export default function RoomDetailsStep() {
                   <div className="flex gap-2 mt-4">
                     <button
                       onClick={handleSaveRoom}
-                      className="px-4 py-1 bg-green-600 text-white rounded-lg cursor-pointer"
+                      className="px-4 py-2 bg-green-600 text-white rounded-lg"
                     >
                       Update
                     </button>
@@ -521,60 +522,46 @@ export default function RoomDetailsStep() {
                         setIsPublished("false");
                         setFormError(null);
                       }}
-                      className="px-4 py-1 bg-gray-400 text-white rounded-lg cursor-pointer"
+                      className="px-4 py-2 bg-gray-400 text-white rounded-lg"
                     >
                       Cancel
                     </button>
                   </div>
                 </div>
               ) : (
-
                 <>
-                  {/* <div className="relative border rounded-xl p-4 shadow-lg bg-white hover:shadow-xl transition-shadow duration-200"> */}
-                    {/* Status badge */}
-                    <span
-                      className={`absolute top-3 right-3 px-3 py-1 text-xs font-semibold rounded-full ${
-                        room.is_published ? "bg-green-600 text-white" : "bg-gray-400 text-white"
-                      }`}
+                  {/* Card normal */}
+                  <span
+                    className={`absolute top-2 right-2 px-2 py-1 text-xs font-semibold rounded ${
+                      room.is_published ? "bg-green-600 text-white" : "bg-gray-400 text-white"
+                    }`}
+                  >
+                    {room.is_published ? "Published" : "Draft"}
+                  </span>
+                  <h3 className="text-md font-semibold">{room.name}</h3>
+                  <p className="text-sm text-gray-600 mb-2">
+                    {room.description || "No description available"}
+                  </p>
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    <div>
+                      <span className="font-medium">Type:</span> {room.type}
+                    </div>
+                    <div>
+                      <span className="font-medium">Price:</span> Rp {room.price.toLocaleString("id-ID")}
+                    </div>
+                    <div>
+                      <span className="font-medium">Rooms Available:</span> {room.number_of_rooms}
+                    </div>
+                  </div>
+                  <div className="flex gap-2 mt-2">
+                    <button
+                      onClick={() => handleEditRoom(room)}
+                      className="px-2 py-1 bg-red-500 text-white rounded text-sm"
                     >
-                      {room.is_published ? "Published" : "Draft"}
-                    </span>
-
-                    {/* Room title & description */}
-                    <h3 className="text-lg font-semibold mb-2">{room.name}</h3>
-                    <p className="text-sm text-gray-600 mb-4">
-                      {room.description || "No description available"}
-                    </p>
-
-                    {/* Room info grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm mb-4">
-                      <div>
-                        <span className="font-medium">Type:</span> {room.type}
-                      </div>
-                      <div>
-                        <span className="font-medium">Price:</span>{" "}
-                        <span className=" font-semibold">
-                          Rp {room.price.toLocaleString("id-ID")}
-                        </span>
-                      </div>
-                      <div>
-                        <span className="font-medium">Rooms Available:</span> {room.number_of_rooms}
-                      </div>
-
-                    </div>
-
-                    {/* Actions */}
-                    <div className="flex justify-end">
-                      <button
-                        onClick={() => handleEditRoom(room)}
-                        className="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 text-sm"
-                      >
-                        Edit
-                      </button>
-                    </div>
-                  {/* </div> */}
+                      Edit
+                    </button>
+                  </div>
                 </>
-
               )}
             </div>
           ))}

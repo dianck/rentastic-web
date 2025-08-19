@@ -217,9 +217,10 @@ export default function RoomDetailsStep() {
 
   return (
     <WizardStep>
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold">Room Details</h2>
+      <h2 className="text-lg font-bold mb-4">Room Details</h2>
 
+      {/* Tombol Add Room di atas daftar */}
+      <div className="mb-4">
         <button
           onClick={() => {
             // reset semua state form agar kosong
@@ -233,7 +234,7 @@ export default function RoomDetailsStep() {
             setEditingRoomId(null);
             setShowForm(true);
           }}
-          className="px-5 py-0 bg-blue-600 text-white rounded-full shadow hover:bg-blue-700 transition-colors cursor-pointer"
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow"
         >
           Add Room
         </button>
@@ -363,14 +364,14 @@ export default function RoomDetailsStep() {
           <div className="flex gap-2 mt-4">
             <button
               onClick={handleSaveRoom}
-              className="px-4 py-1 bg-green-600 text-white rounded-lg cursor-pointer"
+              className="px-4 py-2 bg-green-600 text-white rounded-lg"
             >
               Save
             </button>
             <button
               onClick={() => setShowForm(false)}
-              className="px-4 py-1 bg-gray-400 text-white rounded-lg cursor-pointer"
-            > 
+              className="px-4 py-2 bg-gray-400 text-white rounded-lg"
+            >
               Cancel
             </button>
           </div>
@@ -502,7 +503,7 @@ export default function RoomDetailsStep() {
                   <div className="flex gap-2 mt-4">
                     <button
                       onClick={handleSaveRoom}
-                      className="px-4 py-1 bg-green-600 text-white rounded-lg cursor-pointer"
+                      className="px-4 py-2 bg-green-600 text-white rounded-lg"
                     >
                       Update
                     </button>
@@ -521,7 +522,7 @@ export default function RoomDetailsStep() {
                         setIsPublished("false");
                         setFormError(null);
                       }}
-                      className="px-4 py-1 bg-gray-400 text-white rounded-lg cursor-pointer"
+                      className="px-4 py-2 bg-gray-400 text-white rounded-lg"
                     >
                       Cancel
                     </button>
@@ -553,7 +554,7 @@ export default function RoomDetailsStep() {
                       </div>
                       <div>
                         <span className="font-medium">Price:</span>{" "}
-                        <span className=" font-semibold">
+                        <span className="text-green-600 font-semibold">
                           Rp {room.price.toLocaleString("id-ID")}
                         </span>
                       </div>

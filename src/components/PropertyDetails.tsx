@@ -302,7 +302,7 @@ export default function PropertyDetailsForm() {
       <p className="text-sm text-gray-600">
         Kindly note that any action taken by the Hotel’s PIC as stated and recorded here will be
         deemed as a legitimate action on behalf of the Hotel. Any email, action, and/or other
-        correspondence either notification from Traveloka to Hotel and/or Hotel’s approval on any
+        correspondence either notification from {process.env.NEXT_PUBLIC_APP_NAME} to Hotel and/or Hotel’s approval on any
         related matter regarding services, confirmation letter, and/or any documents related to the
         cooperation, other than carry out by the Hotel’s authorized representative as stated in the
         POA, can be also carried out by Hotel’s PIC as stated and recorded in here.

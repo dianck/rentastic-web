@@ -118,7 +118,7 @@ export default function PropertyCategoryStep() {
       <h2 className="text-lg font-bold mb-4">Select Property Category</h2>
       {error && <p className="text-red-500 mb-2">{error}</p>}
       {success && <p className="text-green-500 mb-2">{success}</p>}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {categories.map((cat) => {
           const isSelected = cat.id === selectedCategoryId;
           return (
