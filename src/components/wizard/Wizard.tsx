@@ -40,13 +40,15 @@ export default function Wizard({ steps }: WizardProps) {
         >
           Back
         </button>
-        <button
-          onClick={nextStep}
-          disabled={currentStep === steps.length - 1}
-          className="px-4 py-2 bg-blue-600 text-white rounded"
-        >
-          {currentStep === steps.length - 1 ? "Finish" : "Next"}
-        </button>
+        
+        {currentStep < steps.length - 1 && (
+          <button
+            onClick={nextStep}
+            className="px-4 py-2 bg-blue-600 text-white rounded"
+          >
+            Next
+          </button>
+        )}
       </div>
     </div>
   );
