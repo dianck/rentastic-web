@@ -18,7 +18,7 @@ export function SearchForm() {
   const [guests, setGuests] = React.useState(2);
 
   return (
-    <div className="w-full max-w-4xl mx-auto bg-card p-4 sm:p-6 rounded-xl shadow-lg -mt-60 relative z-10">
+    <div className="w-full max-w-4xl mx-auto bg-card p-4 sm:p-6 rounded-xl shadow-lg -mt-30 relative z-10">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
         <div className="space-y-2">
           <Label htmlFor="destination" className="text-white font-semibold flex items-center gap-2">
